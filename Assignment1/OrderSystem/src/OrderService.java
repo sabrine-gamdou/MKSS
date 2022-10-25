@@ -17,7 +17,8 @@ public class OrderService {
 	int productIndex = 0;
 	int serviceIndex = 0;
 
-	public void menuloop() {
+	//Changed menuloop to menuLoop (naming convention)
+	public void menuLoop() {
 		productList.sort(byPrice);
 		int input;
 		do {
@@ -69,22 +70,22 @@ public class OrderService {
 	}
 	private void orderProduct(int index) {
 		System.out.println("Name: ");
-		String l = Input.readString();
+		String productName = Input.readString();
 		System.out.println("Unit price (in cents): ");
-		int p = Input.readInt();
+		int productPrice = Input.readInt();
 		System.out.println("Quantity: ");
-		int s = Input.readInt();
-		products[index] = new Product(l, p, s) ;
+		int productQuantity = Input.readInt();
+		products[index] = new Product(productName, productPrice, productQuantity) ;
 	}
 	
 	private void orderService(int index) {
 		System.out.println("Service type: ");
-		String l = Input.readString();
+		String serviceName = Input.readString();
 		System.out.println("Number of persons: ");
-		int p = Input.readInt();
+		int servicePersons = Input.readInt();
 		System.out.println("Hours: ");
-		int s = Input.readInt();
-		services[index] = new Service(l, p, s) ;
+		int serviceHours = Input.readInt();
+		services[index] = new Service(serviceName, servicePersons, serviceHours) ;
 	}
 	
 	private void finishOrder() {
@@ -97,14 +98,15 @@ public class OrderService {
 		}
 		for (int i = 0; i < services.length; i++) {
 			if (services[i] != null) {
-				services[i].print();
+				//Print service string using a toString method
+				System.out.println(services[i].toString());
 				System.out.println(" = " + formatPrice(services[i].getPrice()));
 				sum += services[i].getPrice();
 			}
 		}
 		System.out.println("Sum: "+ formatPrice(sum));
 		emptyCart();
-		menuloop();
+		menuLoop();
 	}
 
 	private void emptyCart(){

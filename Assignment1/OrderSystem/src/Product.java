@@ -19,8 +19,7 @@ public class Product {
 		return unitPrice * quantity;
 	}
 
-	//TODO not consistent with Service class where print is used as a method instead of toString?
-	@Override
+	//Removed override as it is redundant
 	public String toString() {
 		return quantity + " * " + getName();
 	}

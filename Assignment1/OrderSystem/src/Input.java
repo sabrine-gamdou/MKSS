@@ -66,10 +66,10 @@ public class Input {
 	}
 
 	// Only for test purposes
-	//TODO variable name is in english - not consistent
+	//Renamed variable name to an english name instead of german (consistency)
 	public static void main(String[] s) {
-		int eingabe = 0;
-		while(eingabe != -1) {
+		int input = 0;
+		while(input != -1) {
 			System.out.print("Enter text: ");
 			System.out.println("Input was:" + Input.readString());
 			System.out.print("Enter float: ");
@@ -79,8 +79,8 @@ public class Input {
 			System.out.print("Enter boolean: ");
 			System.out.println("Input was:" + Input.readBoolean());
 			System.out.print("Enter integer number (Cancel with -1): ");
-			eingabe = Input.readInt();
-			System.out.println("Input was: " + eingabe);
+			input = Input.readInt();
+			System.out.println("Input was: " + input);
 		}
 	}
 }
