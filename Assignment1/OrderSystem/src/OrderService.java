@@ -1,36 +1,30 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import model.Order;
+import model.Product;
+import model.Service;
 
-//TODO split class in Product class and Service class´?
+import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
+
+//TODO split class in model.Product class and model.Service class´?
 //TODO use Item as parent class (or composition?) for both items as they require same functionalities: sort and order
 //TODO add functionality packages depending on function
 public class OrderService {
 
-	private Product[] products = new Product[5];
-	private Service[] services = new Service[5];
-
-	private List<Product> productList = new ArrayList<>();
-	Comparator<Product> byPrice =
-			Comparator.comparingInt(Product::getPrice);
-
-	int productIndex = 0;
-	int serviceIndex = 0;
+	private Order orders = new Order();
 
 	//Changed menuloop to menuLoop (naming convention)
 	public void menuLoop() {
-		productList.sort(byPrice);
 		int input;
 		do {
 			printMenu();
 			input = Input.readInt();
 			switch ( input ) {
 				case 0: break ;
-				case 1: orderProduct(productIndex++); break ;
-				case 2: orderService(serviceIndex++); break ;
+				case 1: orderProduct(); break ;
+				case 2: orderService(); break ;
 				default: System.out.println("invalid" ); break ;
 			}
-		} while( input != 0 && (productIndex < 5) && serviceIndex < 5);
+		} while( input != 0 );
 		sortProducts();
 		sortServices();
 		finishOrder() ;
@@ -44,74 +38,57 @@ public class OrderService {
 	}
 	
 	private void sortProducts() {
-		//TODO check if empty
-		for (int i = 0; i< products.length-1; i++) {
-			for (int j = 0; j< products.length-1; j++) {
-				if ( products[j+1] != null && products[j+1].getPrice()< products[j].getPrice()) {
-					Product temp = products[j + 1] ;
-					products[j+1] = products[ j ] ;
-					products[j] = temp ;
-				}
-			}
-		}
+		Comparator<Product> byPrice =
+				Comparator.comparingInt(Product::getPrice);
+		orders.getProducts().sort(byPrice);
 	}
 
 	private void sortServices() {
-		//TODO check if empty
-		for (int i = 0; i< services.length-1; i++) {
-			for (int j = 0; j< services.length-1; j++) {
-				if ( services[j+1] != null && services[j+1].getPrice()< services[j].getPrice()) {
-					Service temp = services[j + 1] ;
-					services[j+1] = services[ j ] ;
-					services[j] = temp ;
-				}
-			}
-		}
+		Comparator<Service> byPrice =
+				Comparator.comparingInt(Service::getPrice);
+		orders.getServices().sort(byPrice);
 	}
-	private void orderProduct(int index) {
+	private void orderProduct() {
 		System.out.println("Name: ");
 		String productName = Input.readString();
 		System.out.println("Unit price (in cents): ");
 		int productPrice = Input.readInt();
 		System.out.println("Quantity: ");
 		int productQuantity = Input.readInt();
-		products[index] = new Product(productName, productPrice, productQuantity) ;
+		orders.getProducts().add(new Product(productName, productPrice, productQuantity));
 	}
 	
-	private void orderService(int index) {
+	private void orderService() {
 		System.out.println("Service type: ");
 		String serviceName = Input.readString();
 		System.out.println("Number of persons: ");
 		int servicePersons = Input.readInt();
 		System.out.println("Hours: ");
 		int serviceHours = Input.readInt();
-		services[index] = new Service(serviceName, servicePersons, serviceHours) ;
+		orders.getServices().add(new Service(serviceName, servicePersons, serviceHours));
 	}
 	
 	private void finishOrder() {
-		int sum = 0;
-		for (int i = 0; i < products.length; i++) {
-			if (products[i] != null) {
-				System.out.println(products[i] + " = " + formatPrice(products[i].getPrice()));
-				sum += products[i].getPrice();
-			}
-		}
-		for (int i = 0; i < services.length; i++) {
-			if (services[i] != null) {
-				//Print service string using a toString method
-				System.out.println(services[i].toString());
-				System.out.println(" = " + formatPrice(services[i].getPrice()));
-				sum += services[i].getPrice();
-			}
-		}
-		System.out.println("Sum: "+ formatPrice(sum));
+		AtomicInteger sum = new AtomicInteger();
+		orders.getProducts().forEach(product -> {
+			System.out.println(product + " = " + formatPrice(product.getPrice()));
+			sum.addAndGet(product.getPrice());
+		});
+
+		orders.getServices().forEach(service -> {
+			System.out.println(service.toString());
+			System.out.println(" = " + formatPrice(service.getPrice()));
+			sum.addAndGet(service.getPrice());
+		});
+
+		System.out.println("Sum: "+ formatPrice(sum.get()));
 		emptyCart();
 		menuLoop();
 	}
 
 	private void emptyCart(){
-		products = new Product[5];
-		services = new Service[5];
+		orders.getProducts().clear();
+		orders.getServices().clear();
 	}
 	private String formatPrice(int priceInCent) {
 		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
