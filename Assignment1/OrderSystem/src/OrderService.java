@@ -43,6 +43,7 @@ public class OrderService {
 	}
 	
 	private void sortProducts() {
+		//TODO check if empty
 		for (int i = 0; i< products.length-1; i++) {
 			for (int j = 0; j< products.length-1; j++) {
 				if ( products[j+1] != null && products[j+1].getPrice()< products[j].getPrice()) {
@@ -55,6 +56,7 @@ public class OrderService {
 	}
 
 	private void sortServices() {
+		//TODO check if empty
 		for (int i = 0; i< services.length-1; i++) {
 			for (int j = 0; j< services.length-1; j++) {
 				if ( services[j+1] != null && services[j+1].getPrice()< services[j].getPrice()) {
@@ -101,8 +103,14 @@ public class OrderService {
 			}
 		}
 		System.out.println("Sum: "+ formatPrice(sum));
+		emptyCart();
+		menuloop();
 	}
 
+	private void emptyCart(){
+		products = new Product[5];
+		services = new Service[5];
+	}
 	private String formatPrice(int priceInCent) {
 		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
 			+ priceInCent % 100 + " EUR";
