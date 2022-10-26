@@ -3,6 +3,7 @@ import model.Order;
 import model.Product;
 import model.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 //TODO add functionality packages depending on function
 public class OrderService {
 
-	private Order orders = new Order();
+	private Order order = new Order();
 
 	//Changed menuloop to menuLoop (naming convention)
 	public void menuLoop() {
@@ -40,7 +41,7 @@ public class OrderService {
 	private void sortItems() {
 		Comparator<Item> byPrice =
 				Comparator.comparingInt(Item::getPrice);
-		orders.getItems().sort(byPrice);
+		order.getItems().sort(byPrice);
 	}
 
 	private void orderProduct() {
@@ -50,7 +51,7 @@ public class OrderService {
 		int productPrice = Input.readInt();
 		System.out.println("Quantity: ");
 		int productQuantity = Input.readInt();
-		orders.getItems().add(new Product(productName, productPrice, productQuantity));
+		order.getItems().add(new Product(productName, productPrice, productQuantity));
 	}
 	
 	private void orderService() {
@@ -60,29 +61,28 @@ public class OrderService {
 		int servicePersons = Input.readInt();
 		System.out.println("Hours: ");
 		int serviceHours = Input.readInt();
-		orders.getItems().add(new Service(serviceName, servicePersons, serviceHours));
+		order.getItems().add(new Service(serviceName, servicePersons, serviceHours));
 	}
 	
 	private void finishOrder() {
 		AtomicInteger sum = new AtomicInteger();
-		orders.getItems().forEach(product -> {
-			System.out.println(product + " = " + formatPrice(product.getPrice()));
-			sum.addAndGet(product.getPrice());
+		order.getItems().forEach(item -> {
+			System.out.println(item + " = " + formatPrice(item.getPrice()));
+			sum.addAndGet(item.getPrice());
 		});
 
-		orders.getItems().forEach(service -> {
-			System.out.println(service.toString());
-			System.out.println(" = " + formatPrice(service.getPrice()));
-			sum.addAndGet(service.getPrice());
-		});
+		order.setSum(sum.get());
+		order.setCheckoutTime(LocalDateTime.now());
 
-		System.out.println("Sum: "+ formatPrice(sum.get()));
+		System.out.println("Sum: "+ formatPrice(order.getSum()));
+		System.out.println("Checkout time: " + order.getCheckoutTime());
+
 		emptyCart();
 		menuLoop();
 	}
 
 	private void emptyCart(){
-		orders.getItems().clear();
+		order.getItems().clear();
 	}
 	private String formatPrice(int priceInCent) {
 		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")

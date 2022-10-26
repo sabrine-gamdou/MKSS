@@ -12,4 +12,8 @@ public class Product extends Item{
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
 	}
+
+	public String toString() {
+		return quantity + " * " + getName();
+	}
 }

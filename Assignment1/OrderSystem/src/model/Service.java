@@ -13,4 +13,9 @@ public class Service extends Item{
 		this.hours = hours;
 		this.persons = persons;
 	}
+
+	//For consistency reasons we deleted the print method and added a toString method instead for both model classes
+	public String toString(){
+		return persons + " persons for " + hours + "h of " + getName();
+	}
 }
