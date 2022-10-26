@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<Product> products = new ArrayList<>();
-    private List<Service> services = new ArrayList<>();
 
-    public List<Product> getProducts() {
-        return products;
-    }
+    private List<Item> items = new ArrayList<>();
 
-    public List<Service> getServices() {
-        return services;
+    public List<Item> getItems() {
+        return items;
     }
 }

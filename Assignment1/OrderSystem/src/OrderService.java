@@ -1,3 +1,4 @@
+import model.Item;
 import model.Order;
 import model.Product;
 import model.Service;
@@ -36,18 +37,13 @@ public class OrderService {
 		System.out.println("(1) Order product");
 		System.out.println("(2) Order service");
 	}
-	
-	private void sortProducts() {
-		Comparator<Product> byPrice =
-				Comparator.comparingInt(Product::getPrice);
-		orders.getProducts().sort(byPrice);
+
+	private void sortItems() {
+		Comparator<Item> byPrice =
+				Comparator.comparingInt(Item::getPrice);
+		orders.getItems().sort(byPrice);
 	}
 
-	private void sortServices() {
-		Comparator<Service> byPrice =
-				Comparator.comparingInt(Service::getPrice);
-		orders.getServices().sort(byPrice);
-	}
 	private void orderProduct() {
 		System.out.println("Name: ");
 		String productName = Input.readString();
@@ -55,7 +51,7 @@ public class OrderService {
 		int productPrice = Input.readInt();
 		System.out.println("Quantity: ");
 		int productQuantity = Input.readInt();
-		orders.getProducts().add(new Product(productName, productPrice, productQuantity));
+		orders.getItems().add(new Product(productName, productPrice, productQuantity));
 	}
 	
 	private void orderService() {
@@ -65,12 +61,12 @@ public class OrderService {
 		int servicePersons = Input.readInt();
 		System.out.println("Hours: ");
 		int serviceHours = Input.readInt();
-		orders.getServices().add(new Service(serviceName, servicePersons, serviceHours));
+		orders.getItems().add(new Service(serviceName, servicePersons, serviceHours));
 	}
 	
 	private void finishOrder() {
 		AtomicInteger sum = new AtomicInteger();
-		orders.getProducts().forEach(product -> {
+		orders.getItems().forEach(product -> {
 			System.out.println(product + " = " + formatPrice(product.getPrice()));
 			sum.addAndGet(product.getPrice());
 		});
