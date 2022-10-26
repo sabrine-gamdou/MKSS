@@ -26,8 +26,7 @@ public class OrderService {
 				default: System.out.println("invalid" ); break ;
 			}
 		} while( input != 0 );
-		sortProducts();
-		sortServices();
+		sortItems();
 		finishOrder() ;
 	}
 	
@@ -71,7 +70,7 @@ public class OrderService {
 			sum.addAndGet(product.getPrice());
 		});
 
-		orders.getServices().forEach(service -> {
+		orders.getItems().forEach(service -> {
 			System.out.println(service.toString());
 			System.out.println(" = " + formatPrice(service.getPrice()));
 			sum.addAndGet(service.getPrice());
@@ -83,8 +82,7 @@ public class OrderService {
 	}
 
 	private void emptyCart(){
-		orders.getProducts().clear();
-		orders.getServices().clear();
+		orders.getItems().clear();
 	}
 	private String formatPrice(int priceInCent) {
 		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
