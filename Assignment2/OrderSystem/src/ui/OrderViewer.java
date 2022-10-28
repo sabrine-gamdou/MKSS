@@ -12,7 +12,7 @@ import model.Service;
 public class OrderViewer {
 
     public void printMenu() {
-        System.out.println("A new session started!");
+        //System.out.println("A new session started!");
         System.out.println("Your choice?");
         System.out.println("(0) Finish order");
         System.out.println("(1) Order product");
