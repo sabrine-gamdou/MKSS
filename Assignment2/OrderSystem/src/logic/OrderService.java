@@ -2,6 +2,7 @@ package logic;
 
 import model.Item;
 import model.Order;
+import model.SimpleItemFactory;
 import ui.OrderViewer;
 
 import java.time.LocalDateTime;
@@ -12,8 +13,8 @@ public class OrderService {
 
 	private Order order = new Order();
 	private OrderViewer orderViewer = new OrderViewer();
+	private SimpleItemFactory simpleItemFactory = new SimpleItemFactory();
 
-	//Changed menuloop to menuLoop (naming convention)
 	public void menuLoop() {
 		int input;
 		do {
@@ -21,8 +22,8 @@ public class OrderService {
 			input = Input.readInt();
 			switch ( input ) {
 				case 0: break ;
-				case 1: orderViewer.orderProduct(order); break ;
-				case 2: orderViewer.orderService(order); break ;
+				case 1: simpleItemFactory.createProduct(order); break ;
+				case 2: simpleItemFactory.createService(order); break ;
 				default: System.out.println("invalid"); break ;
 			}
 		} while( input != 0 );
@@ -35,7 +36,11 @@ public class OrderService {
 				Comparator.comparingInt(Item::getPrice);
 		order.getItems().sort(byPrice);
 	}
-	
+
+	public void setSimpleItemFactory(SimpleItemFactory simpleItemFactory) {
+		this.simpleItemFactory = simpleItemFactory;
+	}
+
 	private void finishOrder() {
 		AtomicInteger sum = new AtomicInteger();
 		order.getItems().forEach(item -> {
