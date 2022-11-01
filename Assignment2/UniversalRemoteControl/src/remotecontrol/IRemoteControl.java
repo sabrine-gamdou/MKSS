@@ -7,6 +7,8 @@ public interface IRemoteControl {
 
     // TODO: Method for configuration of action buttons
 
+    public void configureButtonAction();
+
     /**
      * The action button was pressed.
      * Depending on its status, it will execute an activate or deactivate action.

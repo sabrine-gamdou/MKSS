@@ -1,5 +1,8 @@
 package remotecontrol;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Base implementation for the remote control.
  */
@@ -9,16 +12,25 @@ public class RemoteControl implements IRemoteControl {
 
 		private boolean[] buttonStatus;
 		// TODO: Data structures for the actions
-
+		private List<String> actions;
 		public RemoteControl() {
 			buttonStatus = new boolean[NO_OF_ACTION_BUTTONS];
 
 			// TODO: Initialize data structures for the actions
+			actions = new ArrayList<>();
+			actions.add("on/off");
+			actions.add("play/pause");
+			actions.add("next/previous");
 		}
 
 		// TODO: Implement method for configuration of action buttons
 
-		/**
+	@Override
+	public void configureButtonAction() {
+
+	}
+
+	/**
 		 * The action button was pressed.
 		 * Depending on its status, it will execute an activate or deactivate action.
 		 *
