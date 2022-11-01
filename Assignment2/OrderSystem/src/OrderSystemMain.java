@@ -1,5 +1,5 @@
+import factories.SimpleItemFactory;
 import logic.OrderService;
-import model.SimpleItemFactory;
 
 public class OrderSystemMain {
 	public static void main(String[] args) {
