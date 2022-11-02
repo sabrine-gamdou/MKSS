@@ -13,22 +13,26 @@ public class OrderService {
 
 	//private Order order = new Order();
 	private OrderViewer orderViewer = new OrderViewer();
-	private SimpleItemFactory simpleItemFactory = new SimpleItemFactory();
+	private SimpleItemFactory simpleItemFactory;
 
 	public void menuLoop() {
-		int input;
-		do {
-			orderViewer.printMenu();
-			input = Input.readInt();
-			switch ( input ) {
-				case 0: break ;
-				case 1: simpleItemFactory.createProduct(simpleItemFactory); break ;
-				case 2: simpleItemFactory.createService(simpleItemFactory); break ;
-				default: System.out.println("invalid"); break ;
-			}
-		} while( input != 0 );
-		sortItems();
-		finishOrder() ;
+		if (simpleItemFactory != null) {
+			int input;
+			do {
+				orderViewer.printMenu();
+				input = Input.readInt();
+				switch ( input ) {
+					case 0: break ;
+					case 1: simpleItemFactory.createProduct(simpleItemFactory); break ;
+					case 2: simpleItemFactory.createService(simpleItemFactory); break ;
+					default: System.out.println("invalid"); break ;
+				}
+			} while( input != 0 );
+			sortItems();
+			finishOrder() ;
+		} else {
+			System.out.println("Internal system error!");
+		}
 	}
 
 	private void sortItems() {
