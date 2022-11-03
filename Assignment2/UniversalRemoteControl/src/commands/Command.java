@@ -1,17 +1,19 @@
 package commands;
 
-import remotecontrol.RemoteControl;
 
 public abstract class Command {
-    public RemoteControl remoteControl;
 
-    Command(RemoteControl remoteControl){
-        this.remoteControl = remoteControl;
-    }
+    private Command oppositeCommand;
 
-    public void undo(){
-        System.out.println("Undo action");
+    public void configureUndo(Command command) {
+        this.oppositeCommand = command;
     }
 
     public abstract void execute();
+
+    public abstract String toString();
+
+    public Command getOppositeCommand() {
+        return oppositeCommand;
+    }
 }
