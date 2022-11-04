@@ -16,9 +16,9 @@ public class OrderViewer {
         System.out.println("(2) Order service");
     }
 
-    public void printOrder(SimpleItemFactory simpleItemFactory, String formattedPrice){
+    public void printOrder(Order order, String formattedPrice){
         System.out.println("Sum: "+ formattedPrice);
-        System.out.println("Checkout time: " + simpleItemFactory.getCheckoutTime());
+        System.out.println("Checkout time: " + order.getCheckoutTime());
         System.out.println("Session ended!\n");
     }
 

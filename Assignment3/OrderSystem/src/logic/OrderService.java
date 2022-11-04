@@ -1,7 +1,7 @@
 package logic;
 
 import model.Item;
-//import model.Order;
+import model.Order;
 import factories.SimpleItemFactory;
 import ui.OrderViewer;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderService {
 
-	//private Order order = new Order();
+	private Order order = new Order();
 	private OrderViewer orderViewer = new OrderViewer();
 	private SimpleItemFactory simpleItemFactory;
 
@@ -23,8 +23,8 @@ public class OrderService {
 				input = Input.readInt();
 				switch ( input ) {
 					case 0: break ;
-					case 1: simpleItemFactory.createProduct(simpleItemFactory); break ;
-					case 2: simpleItemFactory.createService(simpleItemFactory); break ;
+					case 1: simpleItemFactory.createProduct(order); break ;
+					case 2: simpleItemFactory.createService(order); break ;
 					default: System.out.println("invalid"); break ;
 				}
 			} while( input != 0 );
@@ -38,7 +38,7 @@ public class OrderService {
 	private void sortItems() {
 		Comparator<Item> byPrice =
 				Comparator.comparingInt(Item::getPrice);
-		simpleItemFactory.getItems().sort(byPrice);
+		order.getItems().sort(byPrice);
 	}
 
 	public void setSimpleItemFactory(SimpleItemFactory simpleItemFactory) {
@@ -47,22 +47,22 @@ public class OrderService {
 
 	private void finishOrder() {
 		AtomicInteger sum = new AtomicInteger();
-		simpleItemFactory.getItems().forEach(item -> {
+		order.getItems().forEach(item -> {
 			orderViewer.printItemPrice(item,formatPrice(item.getPrice()));
 			sum.addAndGet(item.getPrice());
 		});
 
-		simpleItemFactory.setSum(sum.get());
-		simpleItemFactory.setCheckoutTime(LocalDateTime.now());
+		order.setSum(sum.get());
+		order.setCheckoutTime(LocalDateTime.now());
 
-		orderViewer.printOrder(simpleItemFactory, formatPrice(simpleItemFactory.getSum()));
+		orderViewer.printOrder(order, formatPrice(order.getSum()));
 
 		emptyCart();
 		menuLoop();
 	}
 
 	private void emptyCart(){
-		simpleItemFactory.getItems().clear();
+		order.getItems().clear();
 	}
 
 	private String formatPrice(int priceInCent) {
