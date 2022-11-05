@@ -23,8 +23,8 @@ public class OrderService {
 				input = Input.readInt();
 				switch ( input ) {
 					case 0: break ;
-					case 1: simpleItemFactory.createProduct(order); break ;
-					case 2: simpleItemFactory.createService(order); break ;
+					case 1: simpleItemFactory.createProduct(); break ;
+					case 2: simpleItemFactory.createService(); break ;
 					default: System.out.println("invalid"); break ;
 				}
 			} while( input != 0 );

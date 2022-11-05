@@ -1,6 +1,5 @@
 package ui;
 
-import factories.SimpleItemFactory;
 import model.Item;
 import model.Order;
 /**

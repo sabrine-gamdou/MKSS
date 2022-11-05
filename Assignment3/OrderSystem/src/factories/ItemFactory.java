@@ -1,6 +1,8 @@
 package factories;
 
 import model.Order;
+import model.Product;
+import model.Service;
 
 
 /**
@@ -9,6 +11,6 @@ import model.Order;
 public interface ItemFactory {
 
     // Methods for creating products and services
-    void createProduct(Order order);
-    void createService(Order order);
+    Product createProduct();
+    Service createService();
 }
