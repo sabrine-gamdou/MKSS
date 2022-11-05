@@ -9,6 +9,8 @@ public class Order {
     private List<Item> items = new ArrayList<>();
     private LocalDateTime checkoutTime;
     private int sum = 0;
+    private OrderStatus orderStatus;
+    private int id;
 
     public List<Item> getItems() {
         return items;
@@ -28,5 +30,21 @@ public class Order {
 
     public void setSum(int sum) {
         this.sum = sum;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
