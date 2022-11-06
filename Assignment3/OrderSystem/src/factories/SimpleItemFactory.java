@@ -1,15 +1,8 @@
 package factories;
 
 import logic.Input;
-import model.Item;
-//import model.Order;
-import model.Order;
 import model.Product;
 import model.Service;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class implements the ItemFactory and creates product and service instances
@@ -25,7 +18,6 @@ public class SimpleItemFactory implements ItemFactory{
         System.out.println("Quantity: ");
         int productQuantity = Input.readInt();
         return new Product(productName, productPrice, productQuantity);
-        //order.getItems().add(new Product(productName, productPrice, productQuantity));
     }
 
     @Override
@@ -37,6 +29,5 @@ public class SimpleItemFactory implements ItemFactory{
         System.out.println("Hours: ");
         int serviceHours = Input.readInt();
         return new Service(serviceName, servicePersons, serviceHours);
-        //order.getItems().add(new Service(serviceName, servicePersons, serviceHours));
     }
 }
