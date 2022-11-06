@@ -30,7 +30,7 @@ public class CLI implements UI{
     }
 
     @Override
-    public UserInput readInput(Order currentOrder) {
+    public UserInput readInput() {
         int input;
         do {
             printMenu();

@@ -28,7 +28,7 @@ public class OrderService {
 
     public void menuLoop() {
         if (simpleItemFactory != null) {
-            switch (userInterface.readInput(currentOrder)) {
+            switch (userInterface.readInput()) {
                 case FINISH:
                     finishOrder();
                     userInterface.sortItems(currentOrder);
@@ -40,6 +40,9 @@ public class OrderService {
                     break;
                 case ADD_SERVICE:
                     addService();
+                    break;
+                case WAITING:
+                    userInterface.printInfo("No user input was received.");
                     break;
                 default:
                     userInterface.printError("invalid");

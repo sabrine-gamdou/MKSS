@@ -1,6 +1,6 @@
 import factories.SimpleItemFactory;
 import logic.OrderService;
-import ui.CLI;
+import ui.GUI;
 import ui.UI;
 
 public class OrderSystemMain {
@@ -11,7 +11,7 @@ public class OrderSystemMain {
 		}else{
 			userInterface = new CLI();
 		}*/
-		UI userInterface = new CLI();
+		UI userInterface = new GUI();
 		OrderService orderService = new OrderService(userInterface);
 		SimpleItemFactory simpleItemFactory = new SimpleItemFactory();
 		orderService.setSimpleItemFactory(simpleItemFactory);
