@@ -1,6 +1,5 @@
 package factories;
 
-import model.Order;
 import model.Product;
 import model.Service;
 
