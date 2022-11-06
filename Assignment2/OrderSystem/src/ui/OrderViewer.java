@@ -2,9 +2,9 @@ package ui;
 
 import factories.SimpleItemFactory;
 import model.Item;
-import model.Order;
+
 /**
- * This class was seperated from the OrderService class and is responsible for printing and viewing orders and items
+ * This class was separated from the OrderService class and is responsible for printing and viewing orders and items
  */
 public class OrderViewer {
 
