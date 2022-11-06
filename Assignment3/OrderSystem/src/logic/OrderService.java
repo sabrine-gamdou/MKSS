@@ -76,11 +76,12 @@ public class OrderService {
     private void initializeOrder() {
         Order order = new Order();
         order.setOrderStatus(OrderStatus.CREATED);
+        order.setId(generateId());
+
         currentOrder = orderRepository.save(order);
 
         if (currentOrder != null) {
-            currentOrder.setId(generateId());
-            currentOrder = orderRepository.save(currentOrder);
+            System.out.println("Order was created.");
         } else {
             // order wasn't created - log error for ex.
             System.out.println("Order could not be initialized. Please restart the program!");
@@ -107,6 +108,8 @@ public class OrderService {
 
         currentOrder.setSum(sum.get());
         currentOrder.setCheckoutTime(LocalDateTime.now());
+        currentOrder.setOrderStatus(OrderStatus.FINISHED);
+        updateOrder();
 
         orderViewer.printOrder(currentOrder, formatPrice(currentOrder.getSum()));
 
