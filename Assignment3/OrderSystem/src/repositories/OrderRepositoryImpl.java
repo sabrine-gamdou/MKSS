@@ -2,46 +2,48 @@ package repositories;
 
 import model.Order;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderRepositoryImpl implements OrderRepository {
 
-    private List<Order> orders;
+    private final Map<Integer,Order> orders;
 
     public OrderRepositoryImpl() {
-        this.orders = new ArrayList<>();
+        this.orders = new HashMap<>();
     }
 
     @Override
     public Order save(Order order) {
-        if (!orders.contains(order)) {
-            orders.add(order);
-        } else {
-            get(order.getId()).setSum(order.getSum());
-            get(order.getId()).setOrderStatus(order.getOrderStatus());
-            get(order.getId()).setCheckoutTime(order.getCheckoutTime());
+        if (orders.containsValue(order)) {
+            orders.remove(order.getId());
         }
+        orders.put(order.getId(),order);
         return orders.get(order.getId());
     }
 
     @Override
     public Order remove(int id) {
-        if (!orders.contains(get(id))) {
+        if (!orders.containsKey(id)) {
             return null;
         } else {
             return orders.remove(id);
         }
+
     }
 
     @Override
-    public List findAll() {
-        return null;
+    public Map<Integer,Order> findAll() {
+        return orders;
     }
 
     @Override
     public Order findById(int id) {
-        return null;
+        if (get(id) == null) {
+            return null;
+        } else {
+            return get(id);
+        }
     }
 
     private Order get(int id) {

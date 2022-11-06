@@ -2,11 +2,11 @@ package repositories;
 
 import model.Order;
 
-import java.util.List;
+import java.util.Map;
 
 public interface OrderRepository {
     Order save(Order order);
     Order remove(int id);
-    List findAll();
+    Map<Integer,Order> findAll();
     Order findById(int id);
 }
