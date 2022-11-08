@@ -48,7 +48,7 @@ public class OrderService {
                     userInterface.printError("invalid");
                     break;
             }
-            menuLoop();
+            //menuLoop();
         }else{
             userInterface.printError("Internal system error!");
         }
