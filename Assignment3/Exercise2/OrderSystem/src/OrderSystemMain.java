@@ -1,6 +1,6 @@
 import factories.SimpleItemFactory;
 import logic.OrderService;
-import ui.GUI;
+import ui.gui.GUI;
 import ui.UI;
 
 public class OrderSystemMain {
