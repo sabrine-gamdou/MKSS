@@ -1,8 +1,10 @@
-package ui;
+package ui.cli;
 
 import logic.Input;
 import model.Item;
 import model.Order;
+import ui.UI;
+import ui.UserInput;
 
 import java.util.Comparator;
 

@@ -1,6 +1,7 @@
-package ui;
+package ui.gui;
 
 import model.Order;
+import ui.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,14 +38,14 @@ public class GUI extends JFrame implements UI, ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == addProductButton) {
-            newClientProductDialog.showDialog();
-            System.out.println("Product: "+ newClientProductDialog.getProductName());
-            System.out.println("Price: "+ newClientProductDialog.getPrice());
-            System.out.println("Quantity: "+ newClientProductDialog.getQuantity());
-        } else if (source == addServiceButton) {
-            newClientServiceDialog.showDialog();
-            System.out.println("Service: "+ newClientServiceDialog.getServiceName());
-            System.out.println("Persons: "+ newClientServiceDialog.getPersons());
+                newClientProductDialog.showDialog();
+                System.out.println("Product: "+ newClientProductDialog.getProductName());
+                System.out.println("Price: "+ newClientProductDialog.getPrice());
+                System.out.println("Quantity: "+ newClientProductDialog.getQuantity());
+            } else if (source == addServiceButton) {
+                newClientServiceDialog.showDialog();
+                System.out.println("Service: "+ newClientServiceDialog.getServiceName());
+                System.out.println("Persons: "+ newClientServiceDialog.getPersons());
             System.out.println("Hours: "+ newClientServiceDialog.getHours());
         } else if (source == finishButton) {
             newClientFinishDialog.showDialog();
