@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class NewClientServiceDialog extends JDialog implements ActionListener{
             saveButton.addActionListener(this);
             quitButton.addActionListener(this);
 
-            JPanel panelN = new JPanel(new GridLayout(0, 3, 5, 5));
+            JPanel panelN = new JPanel(new GridLayout(0, 2, 5, 5));
             panelN.add(new JLabel("Service", JLabel.RIGHT));
             panelN.add(serviceNameField);
             panelN.add(new JLabel("Persons", JLabel.RIGHT));

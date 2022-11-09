@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import model.Order;
 
@@ -23,7 +23,7 @@ public class NewClientFinishDialog extends JDialog implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         quitButton.addActionListener(this);
 
-        JPanel panelN = new JPanel(new GridLayout(0, 3, 5, 5));
+        JPanel panelN = new JPanel(new GridLayout(0, 2, 5, 5));
         panelN.add(new JLabel("Order", JLabel.RIGHT));
         //panelN.add(orderField);
         panelN.add(new JLabel("Sum", JLabel.RIGHT));
