@@ -3,15 +3,21 @@ package ui.cli;
 import logic.Input;
 import model.Item;
 import model.Order;
-import ui.UI;
-import ui.UserInput;
-
-import java.util.Comparator;
+import model.Product;
+import model.Service;
+import ui.OrderServiceInterface;
+import utils.Utility;
 
 /**
  * This class was separated from the OrderService class and is responsible for printing and viewing orders and items
  */
-public class CLI implements UI{
+public class CLI {
+
+    private OrderServiceInterface model;
+
+    public CLI(OrderServiceInterface model) {
+        this.model = model;
+    }
 
     public void printMenu() {
         System.out.println("Your choice?");
@@ -20,64 +26,86 @@ public class CLI implements UI{
         System.out.println("(2) Order service");
     }
 
-    @Override
     public void printFinishedOrder(Order currentOrder) {
-        currentOrder.getItems().forEach(item -> {
-            printItemPrice(item, formatPrice(item.getPrice()));
-        });
+        currentOrder.getItems().forEach(item -> printItemPrice(item, Utility.formatPrice(item.getPrice())));
 
-        System.out.println("Sum: "+ formatPrice(currentOrder.getSum()));
-        System.out.println("Checkout time: " + currentOrder.getCheckoutTime());
+        System.out.println("Sum: " + Utility.formatPrice(currentOrder.getSum()));
+        System.out.println("Checkout time: " + Utility.formatCheckoutTime(currentOrder.getCheckoutTime()));
         System.out.println("Session ended!\n");
     }
 
-    @Override
-    public UserInput readInput() {
-        int input;
-        do {
-            printMenu();
-            input = Input.readInt();
-            switch (input) {
-                case 0:
-                    return UserInput.FINISH;
-                case 1:
-                    return UserInput.ADD_PRODUCT;
-                case 2:
-                    return UserInput.ADD_SERVICE;
-                default:
-                    return null;
+    public void menuLoop() {
+        if (model.getCurrentOrder() != null) {
+            printInfo("New order was created.");
+            if (model.getSimpleItemFactory() != null) {
+                int input;
+                do {
+                    printMenu();
+                    input = Input.readInt();
+                    switch (input) {
+                        case 0 -> finishOrder();
+                        case 1 -> {
+                            Product product = addProduct();
+                            model.addProduct(product.getName(), product.getUnitPrice(), product.getQuantity());
+                        }
+                        case 2 -> {
+                            Service service = addService();
+                            model.addService(service.getName(), service.getPersons(), service.getHours());
+                        }
+                        default -> printError("invalid");
+                    }
+                } while (input != 0);
+                menuLoop();
+            } else {
+                printError("Internal system error!");
             }
-        } while (input != 0);
+        } else {
+            printError("Order could not be initialized. Please restart the program!");
+        }
+
     }
 
-    @Override
-    public String formatPrice(int priceInCent) {
-        return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
-                + priceInCent % 100 + " EUR";
+    public Product addProduct() {
+        System.out.println("Name: ");
+        String productName = Input.readString();
+        System.out.println("Unit price (in cents): ");
+        int productPrice = Input.readInt();
+        System.out.println("Quantity: ");
+        int productQuantity = Input.readInt();
+        return new Product(productName, productPrice, productQuantity);
     }
 
-    @Override
-    public void sortItems(Order currentOrder) {
-        Comparator<Item> byPrice =
-                Comparator.comparingInt(Item::getPrice);
-        currentOrder.getItems().sort(byPrice);
+    public Service addService() {
+        System.out.println("Service type: ");
+        String serviceName = Input.readString();
+        System.out.println("Number of persons: ");
+        int servicePersons = Input.readInt();
+        System.out.println("Hours: ");
+        int serviceHours = Input.readInt();
+        return new Service(serviceName, serviceHours, servicePersons);
     }
 
-    @Override
     public void printError(String error) {
         System.out.println(error);
     }
 
-    public void printInfo(String info){
+    public void printInfo(String info) {
         System.out.println(info);
     }
 
-    public void printOrder(Order order, String formattedPrice){
-
-    }
-
-    public void printItemPrice(Item item, String formattedPrice){
+    public void printItemPrice(Item item, String formattedPrice) {
         System.out.println(item + " = " + formattedPrice);
     }
 
+    private void finishOrder() {
+        if (model.getCurrentOrder() != null) {
+            model.finishOrder();
+            printInfo("Order was finished.");
+            Utility.sortItems(model.getCurrentOrder());
+            printFinishedOrder(model.getCurrentOrder());
+            model.initializeService();
+        } else {
+            printError("No order was initialized.");
+        }
+    }
 }
