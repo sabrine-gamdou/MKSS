@@ -32,10 +32,6 @@ public class Order {
         this.sum = sum;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }

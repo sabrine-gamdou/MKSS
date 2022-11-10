@@ -18,4 +18,12 @@ public class Service extends Item{
 	public String toString(){
 		return persons + " persons for " + hours + "h of " + getName();
 	}
+
+	public int getHours() {
+		return hours;
+	}
+
+	public int getPersons() {
+		return persons;
+	}
 }
