@@ -1,13 +1,14 @@
 package logic;
 
-import model.Item;
-//import entities.Order;
 import factories.SimpleItemFactory;
+import model.Item;
 import uis.OrderViewer;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
+
+//import entities.Order;
 
 public class OrderService {
 

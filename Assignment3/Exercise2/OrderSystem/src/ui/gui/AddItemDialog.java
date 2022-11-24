@@ -1,8 +1,5 @@
 package uis.gui;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class AddItemDialog extends JDialog {
     private JTextField itemNameField;
     private JTextField priceField;

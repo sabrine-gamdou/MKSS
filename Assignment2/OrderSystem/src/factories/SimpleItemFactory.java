@@ -2,13 +2,14 @@ package factories;
 
 import logic.Input;
 import model.Item;
-//import entities.Order;
 import model.Product;
 import model.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+//import entities.Order;
 
 /**
  * This class implements the ItemFactory and creates product and service instances

@@ -44,6 +44,10 @@ public class Order {
         this.id = id;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }

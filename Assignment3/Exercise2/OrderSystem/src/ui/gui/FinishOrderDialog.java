@@ -3,9 +3,6 @@ package uis.gui;
 import model.Order;
 import utils.Utility;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class FinishOrderDialog extends JDialog{
 
     private JLabel sumField;
