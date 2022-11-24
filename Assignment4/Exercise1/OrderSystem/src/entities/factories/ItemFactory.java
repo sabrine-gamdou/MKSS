@@ -1,7 +1,7 @@
-package factories;
+package entities.factories;
 
-import model.Product;
-import model.Service;
+import entities.Product;
+import entities.Service;
 
 
 /**

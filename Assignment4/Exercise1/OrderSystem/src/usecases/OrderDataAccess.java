@@ -1,10 +1,10 @@
-package repositories;
+package usecases;
 
-import model.Order;
+import entities.Order;
 
 import java.util.Map;
 
-public interface OrderRepository {
+public interface OrderDataAccess {
     Order save(Order order);
     Order remove(int id);
     Map<Integer,Order> findAll();

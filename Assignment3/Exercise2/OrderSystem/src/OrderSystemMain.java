@@ -2,7 +2,7 @@ import controller.OrderController;
 import factories.SimpleItemFactory;
 import logic.OrderService;
 import repositories.OrderRepositoryImpl;
-import ui.cli.CLI;
+import uis.cli.CLI;
 
 public class OrderSystemMain {
     public static void main(String[] args) {

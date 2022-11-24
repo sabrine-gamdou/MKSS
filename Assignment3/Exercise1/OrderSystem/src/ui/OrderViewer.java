@@ -1,4 +1,4 @@
-package ui;
+package uis;
 
 import model.Item;
 import model.Order;

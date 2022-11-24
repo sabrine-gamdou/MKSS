@@ -1,7 +1,7 @@
-package factories;
+package entities.factories;
 
-import model.Product;
-import model.Service;
+import entities.Product;
+import entities.Service;
 
 /**
  * This class implements the ItemFactory and creates product and service instances

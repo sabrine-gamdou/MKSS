@@ -1,4 +1,4 @@
-package ui;
+package uis;
 
 import factories.SimpleItemFactory;
 import model.Item;

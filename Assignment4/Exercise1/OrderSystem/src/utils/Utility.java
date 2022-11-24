@@ -1,7 +1,7 @@
 package utils;
 
-import model.Item;
-import model.Order;
+import entities.Item;
+import usecases.OrderOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ public final class Utility {
                 + priceInCent % 100 + " EUR";
     }
 
-    public static void sortItems(Order currentOrder) {
+    public static void sortItems(OrderOutputData currentOrder) {
         Comparator<Item> byPrice =
                 Comparator.comparingInt(Item::getPrice);
         currentOrder.getItems().sort(byPrice);

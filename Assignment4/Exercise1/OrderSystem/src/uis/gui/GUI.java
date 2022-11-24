@@ -1,11 +1,11 @@
-package ui.gui;
+package uis.gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener{
 
     private JButton finishButton;
     private JButton addProductButton;

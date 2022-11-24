@@ -1,7 +1,7 @@
-package ui.gui;
+package uis.gui;
 
-import model.Item;
-import model.Order;
+import entities.Item;
+import usecases.OrderOutputData;
 import utils.Utility;
 
 import javax.swing.*;
@@ -32,12 +32,12 @@ public class ItemsPanel extends JPanel{
         setUpTableData(null);
     }
 
-    public void updateTable(Order currentOrder) {
+    public void updateTable(OrderOutputData currentOrder) {
         setUpTableData(currentOrder);
     }
 
 
-    private void setUpTableData(Order currentOrder) {
+    private void setUpTableData(OrderOutputData currentOrder) {
         if(currentOrder != null && !currentOrder.getItems().isEmpty()) {
             tableModel.setRowCount(0);
             Utility.sortItems(currentOrder);

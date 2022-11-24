@@ -1,17 +1,23 @@
-package controller;
+package controllers;
 
-import model.Order;
-import ui.OrderServiceInterface;
-import ui.gui.GUI;
+import entities.OrderStatus;
+import uis.gui.GUI;
+import usecases.OrderInputBoundary;
+import usecases.OrderInputData;
+import usecases.OrderOutputBoundary;
+import usecases.OrderOutputData;
 
 import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
+import java.util.Collections;
 
-public class OrderController {
+public class OrderController implements OrderOutputBoundary {
     private GUI view;
-    private OrderServiceInterface model;
+    private OrderInputBoundary model;
+    private OrderOutputData currentOrder;
 
-    public OrderController(OrderServiceInterface orderServiceInterface) {
-        this.model = orderServiceInterface;
+    public OrderController(OrderInputBoundary orderInputBoundary) {
+        this.model = orderInputBoundary;
         this.view = new GUI();
         initializeView();
     }
@@ -20,7 +26,7 @@ public class OrderController {
         getCurrentOrder();
     }
 
-    public OrderServiceInterface getModel() {
+    public OrderInputBoundary getModel() {
         return model;
     }
 
@@ -47,31 +53,45 @@ public class OrderController {
     }
 
     private void addProduct() {
-        model.addProduct(view.getNewProductDialog().getItemName(),
-                        view.getNewProductDialog().getItemsPriceLabel(),
-                        view.getNewProductDialog().getQuantityLabel());
+        OrderInputData inputData = new OrderInputData(
+                view.getNewProductDialog().getItemName(),
+                view.getNewProductDialog().getItemsPriceLabel(),
+                view.getNewProductDialog().getQuantityLabel());
+
+        model.addProduct(inputData);
     }
 
     private void addService() {
-        model.addService(view.getNewServiceDialog().getItemName(),
-                        view.getNewServiceDialog().getItemsPriceLabel(),
-                        view.getNewServiceDialog().getQuantityLabel());
+        OrderInputData inputData = new OrderInputData(
+                view.getNewServiceDialog().getItemName(),
+                view.getNewServiceDialog().getItemsPriceLabel(),
+                view.getNewServiceDialog().getQuantityLabel());
+        model.addService(inputData);
     }
 
     private void resetOrder() {
-        model.initializeService();
+        resetOutputData();
         getCurrentOrder();
     }
 
-    private Order finishOrder() {
+    private OrderOutputData finishOrder() {
         return model.finishOrder(); //got finished order from backend -- need to render and update GUI -- update order in view
     }
 
     private void getCurrentOrder() {
-        view.getItemsPanel().updateTable(model.getCurrentOrder()); //got order from backend -- need to render and update GUI
+        view.getItemsPanel().updateTable(currentOrder); //got order from backend -- need to render and update GUI
     }
 
     private void showFinishedOrder(ActionEvent e) {
         view.getNewClientFinishDialog().showDialog(finishOrder());
+    }
+
+    @Override
+    public void setCurrentOrder(OrderOutputData orderOutputData) {
+        this.currentOrder = orderOutputData;
+    }
+
+    private void resetOutputData() {
+        currentOrder = new OrderOutputData(Collections.emptyList(), LocalDateTime.now(),0, OrderStatus.CREATED,0);
     }
 }

@@ -6,7 +6,7 @@ import model.Order;
 import model.OrderStatus;
 import repositories.OrderRepository;
 import repositories.OrderRepositoryImpl;
-import ui.OrderViewer;
+import uis.OrderViewer;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

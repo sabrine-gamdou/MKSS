@@ -1,4 +1,4 @@
-package ui;
+package uis;
 
 import logic.Input;
 import model.Item;

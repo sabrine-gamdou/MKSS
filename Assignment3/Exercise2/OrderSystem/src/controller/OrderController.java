@@ -1,8 +1,8 @@
 package controller;
 
 import model.Order;
-import ui.OrderServiceInterface;
-import ui.gui.GUI;
+import uis.OrderServiceInterface;
+import uis.gui.GUI;
 
 import java.awt.event.ActionEvent;
 

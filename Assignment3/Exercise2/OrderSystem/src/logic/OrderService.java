@@ -4,7 +4,7 @@ import factories.SimpleItemFactory;
 import model.Order;
 import model.OrderStatus;
 import repositories.OrderRepository;
-import ui.OrderServiceInterface;
+import uis.OrderServiceInterface;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

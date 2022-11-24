@@ -1,15 +1,16 @@
-package repositories;
+package gateways;
 
-import model.Order;
+import entities.Order;
+import usecases.OrderDataAccess;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderRepositoryImpl implements OrderRepository {
+public class OrderRepository implements OrderDataAccess {
 
     private final Map<Integer,Order> orders;
 
-    public OrderRepositoryImpl() {
+    public OrderRepository() {
         this.orders = new HashMap<>();
     }
 

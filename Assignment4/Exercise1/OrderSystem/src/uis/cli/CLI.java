@@ -1,14 +1,25 @@
-package ui.cli;
+package uis.cli;
 
+
+import entities.Item;
+import entities.Product;
+import entities.Service;
+import logic.Input;
+import usecases.OrderInputBoundary;
+import usecases.OrderInputData;
+import usecases.OrderOutputBoundary;
+import usecases.OrderOutputData;
+import utils.Utility;
 
 /**
  * This class was separated from the OrderService class and is responsible for printing and viewing orders and items
  */
-public class CLI {
+public class CLI implements OrderOutputBoundary {
 
-    private OrderServiceInterface model;
+    private OrderInputBoundary model;
+    private OrderOutputData currentOutputData;
 
-    public CLI(OrderServiceInterface model) {
+    public CLI(OrderInputBoundary model) {
         this.model = model;
     }
 
@@ -19,7 +30,7 @@ public class CLI {
         System.out.println("(2) Order service");
     }
 
-    public void printFinishedOrder(Order currentOrder) {
+    public void printFinishedOrder(OrderOutputData currentOrder) {
         currentOrder.getItems().forEach(item -> printItemPrice(item, Utility.formatPrice(item.getPrice())));
 
         System.out.println("Sum: " + Utility.formatPrice(currentOrder.getSum()));
@@ -28,7 +39,7 @@ public class CLI {
     }
 
     public void menuLoop() {
-        if (model.getCurrentOrder() != null) {
+        if (currentOutputData != null) {
             printInfo("New order was created.");
             if (model.getSimpleItemFactory() != null) {
                 int input;
@@ -39,11 +50,11 @@ public class CLI {
                         case 0 -> finishOrder();
                         case 1 -> {
                             Product product = addProduct();
-                            model.addProduct(product.getName(), product.getUnitPrice(), product.getQuantity());
+                            model.addProduct(new OrderInputData(product.getName(), product.getUnitPrice(), product.getQuantity()));
                         }
                         case 2 -> {
                             Service service = addService();
-                            model.addService(service.getName(), service.getPersons(), service.getHours());
+                            model.addService(new OrderInputData(service.getName(), service.getPersons(), service.getHours()));
                         }
                         default -> printError("invalid");
                     }
@@ -91,14 +102,19 @@ public class CLI {
     }
 
     private void finishOrder() {
-        if (model.getCurrentOrder() != null) {
+        if (currentOutputData != null) {
             model.finishOrder();
             printInfo("Order was finished.");
-            Utility.sortItems(model.getCurrentOrder());
-            printFinishedOrder(model.getCurrentOrder());
+            Utility.sortItems(currentOutputData);
+            printFinishedOrder(currentOutputData);
             model.initializeService();
         } else {
             printError("No order was initialized.");
         }
+    }
+
+    @Override
+    public void setCurrentOrder(OrderOutputData orderOutputData) {
+        this.currentOutputData = orderOutputData;
     }
 }

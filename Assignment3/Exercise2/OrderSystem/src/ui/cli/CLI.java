@@ -1,11 +1,11 @@
-package ui.cli;
+package uis.cli;
 
 import logic.Input;
 import model.Item;
 import model.Order;
 import model.Product;
 import model.Service;
-import ui.OrderServiceInterface;
+import uis.OrderServiceInterface;
 import utils.Utility;
 
 /**

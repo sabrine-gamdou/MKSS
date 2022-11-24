@@ -2,7 +2,7 @@ package logic;
 
 import model.Item;
 import model.Order;
-import ui.OrderViewer;
+import uis.OrderViewer;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;

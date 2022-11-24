@@ -1,6 +1,6 @@
-package ui.gui;
+package uis.gui;
 
-import model.Order;
+import usecases.OrderOutputData;
 import utils.Utility;
 
 import javax.swing.*;
@@ -53,7 +53,7 @@ public class FinishOrderDialog extends JDialog{
         quitButton = new JButton("Quit");
     }
 
-    public void showDialog(Order currentOrder) {
+    public void showDialog(OrderOutputData currentOrder) {
         items.updateTable(currentOrder);
         sumField.setText(Utility.formatPrice(currentOrder.getSum()));
         checkoutTimeField.setText(Utility.formatCheckoutTime(currentOrder.getCheckoutTime()));

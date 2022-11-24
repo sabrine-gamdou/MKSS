@@ -1,9 +1,9 @@
 package logic;
 
 import model.Item;
-//import model.Order;
+//import entities.Order;
 import factories.SimpleItemFactory;
-import ui.OrderViewer;
+import uis.OrderViewer;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;

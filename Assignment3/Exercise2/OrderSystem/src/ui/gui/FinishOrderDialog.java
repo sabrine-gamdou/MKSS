@@ -1,4 +1,4 @@
-package ui.gui;
+package uis.gui;
 
 import model.Order;
 import utils.Utility;
