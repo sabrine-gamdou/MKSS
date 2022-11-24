@@ -1,9 +1,12 @@
 package gateways;
 
+import entities.Item;
 import entities.Order;
 import usecases.OrderDataAccess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrderRepository implements OrderDataAccess {
@@ -36,6 +39,24 @@ public class OrderRepository implements OrderDataAccess {
 
     @Override
     public Map<Integer,Order> findAll() {
+        Map<Integer,Order> newOrders = new HashMap<>();
+
+        for(Order order : orders.values()){
+            Order newOrder = new Order();
+            newOrder.setId(order.getId());
+            newOrder.setOrderStatus(order.getOrderStatus());
+            newOrder.setCheckoutTime(order.getCheckoutTime());
+            newOrder.setSum(order.getSum());
+            //newOrder.setItems(order.get);
+
+            List<Item> items = new ArrayList<>();
+            order.getItems().forEach(item -> {
+                //items.add()
+            });
+
+
+            newOrders.put(order.getId(), newOrder);
+        }
         return orders;
     }
 
