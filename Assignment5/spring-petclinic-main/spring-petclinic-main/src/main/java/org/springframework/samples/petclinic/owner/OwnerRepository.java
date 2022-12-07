@@ -73,6 +73,12 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	void save(Owner owner);
 
 	/**
+	 * Delete an {@link Owner} from the data store
+	 * @param owner the {@link Owner} to delete
+	 */
+	void delete(Owner owner);
+
+	/**
 	 * Returnes all the owners from data store
 	 **/
 	@Query("SELECT owner FROM Owner owner")

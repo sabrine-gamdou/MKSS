@@ -15,10 +15,15 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.samples.petclinic.vet.Vet;
+import org.springframework.samples.petclinic.vet.VetRepository;
+import org.springframework.samples.petclinic.vet.Vets;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -39,9 +44,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 class VisitController {
 
 	private final OwnerRepository owners;
+	private final VetRepository vets;
 
-	public VisitController(OwnerRepository owners) {
+	public VisitController(OwnerRepository owners, VetRepository vets) {
 		this.owners = owners;
+		this.vets = vets;
 	}
 
 	@InitBinder
@@ -64,6 +71,9 @@ class VisitController {
 		Pet pet = owner.getPet(petId);
 		model.put("pet", pet);
 		model.put("owner", owner);
+
+		List<Vet> vets =  new ArrayList<>(this.vets.findAll());
+		model.put("vets", vets);
 
 		Visit visit = new Visit();
 		pet.addVisit(visit);

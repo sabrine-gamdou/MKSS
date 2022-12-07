@@ -77,8 +77,6 @@ public class Owner extends Person {
 		this.address = address;
 	}
 
-
-
 	public String getCity() {
 		return this.city;
 	}

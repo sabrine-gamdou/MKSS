@@ -43,6 +43,7 @@ import org.springframework.web.servlet.ModelAndView;
 class OwnerController {
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	private static final String VIEWS_OWNER_DELETE = "owners/deleteOwner";
 
 	private final OwnerRepository owners;
 
@@ -142,6 +143,25 @@ class OwnerController {
 		owner.setId(ownerId);
 		this.owners.save(owner);
 		return "redirect:/owners/{ownerId}";
+	}
+
+	@GetMapping("/owners/{ownerId}/delete")
+	public String initDeleteOwner(@PathVariable("ownerId") int ownerId, Model model) {
+		Owner owner = this.owners.findById(ownerId);
+		model.addAttribute(owner);
+		return VIEWS_OWNER_DELETE;
+	}
+
+	@PostMapping("/owners/{ownerId}/delete")
+	public String processDeleteOwner(@Valid Owner owner, BindingResult result,
+										 @PathVariable("ownerId") int ownerId) {
+		if (result.hasErrors()) {
+			return VIEWS_OWNER_DELETE;
+		}
+
+		owner.setId(ownerId);
+		this.owners.delete(owner);
+		return "redirect:/owners";
 	}
 
 	/**

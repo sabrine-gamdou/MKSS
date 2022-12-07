@@ -34,6 +34,13 @@
         th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}"  />
       <input
         th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />
+      <div class="form-group blu-margin">
+        <b>Vet</b>
+        <select class="form-control" th:field="${visit.vet}"  id="drop-vets" >
+          <option value="0">Select Vet</option>
+          <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.firstName} + ' ' +  ${vet.lastName}"></option>
+        </select>
+      </div>
     </div>
 
     <div class="form-group">
@@ -50,10 +57,12 @@
     <tr>
       <th>Date</th>
       <th>Description</th>
+      <th>Vet</th>
     </tr>
     <tr th:if="${!visit['new']}" th:each="visit : ${pet.visits}">
       <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
       <td th:text=" ${visit.description}"></td>
+      <td th:text=" ${visit.vet.firstName} + ' ' + ${visit.vet.lastName}"></td>
     </tr>
   </table>
 
